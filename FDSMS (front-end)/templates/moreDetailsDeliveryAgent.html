@@ -1,0 +1,152 @@
+{% extends 'topBarAdded.html' %}
+
+{% block title %}
+<title>Order Details</title>
+{% endblock %}
+
+{% block topBarButtons %}
+<a href={{url_for('logout')}}>
+  <button class="btn btn-outline-light" name="submit" type="submit">
+    Logout
+  </button>
+</a>
+{% endblock %}
+
+{% block main %}
+<div class='container-fluid'>
+  {% if not printTable %}
+  <div class='row justify-content-center'>
+    <div class='col-auto align-self-center'>
+      <h1 style="color: rgb(255, 255, 255);">There are no current order selected</h1>
+    </div>
+  </div>
+  {% else %}
+  <div class='row justify-content-center'>
+    <div class='col-auto align-self-center' style="color: rgb(255, 255, 255); font-size: 2rem;">
+      Customer Name: {{customerName}}
+    </div>
+  </div>
+  <div class='row justify-content-center'>
+    <div class='col-auto align-self-center' style="color: rgb(255, 255, 255); font-size: 2rem;">
+      Restaurant Name: {{restaurantName}}
+    </div>
+  </div>
+  <div class='row justify-content-center'>
+    <div class='col-auto align-self-center' style="color: rgb(255, 255, 255); font-size: 2rem;">
+      Address: {{address}}
+    </div>
+  </div>
+  <div class='row justify-content-center'>
+    <div class='col-auto align-self-center'>
+      <div class="container-fluid">
+        <table class="table table-hover" style="background-color: rgb(252, 252, 252); width: 50rem; margin-top: 2rem;">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Frequency</th>
+              <th>Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for foodItem in orderList %}
+            <tr>
+              <td>{{foodItem['name']}}</td>
+              <td>{{foodItem['pricePerItem']}}</td>
+              <td>{{foodItem['frequency']}}</td>
+              <td>{{foodItem['pricePerItem'] * foodItem['frequency']}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class='row justify-content-center'>
+    <div class='col-auto align-self-center'>
+      <div class="container-fluid">
+        <table class="table table-hover" style="background-color: rgb(252, 252, 252); width: 50rem; margin-top: 2rem;">
+          <thead>
+            <tr>
+              <th>Base Cost</th>
+              <th>Discount</th>
+              <th>Delivery Charges</th>
+              <th>Total to Pay</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>{{cost}}</th>
+              <td>{{discount}}</td>
+              <td>{{deliveryCharge}}</td>
+              <td>{{final}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% if showButton == 0 %}
+  <div class='row justify-content-center'>
+    <div class='col-auto align-self-center'>
+      <a href={{url_for('acceptOrderForDelivery')}}>
+        <button class="btn btn-primary" name="submit" type="submit"
+          style="font-size: 1.4rem; width: 6rem; height: 3.2rem; text-align: center;">
+          Accept
+        </button>
+      </a>
+    </div>
+  </div>
+  {% elif showButton == 1 %}
+  <form action={{url_for('acceptDeliveryRequest')}} method="POST">
+    <div class="row justify-content-center">
+      <div class="col-6 align-self-center">
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="material-icons">Estimated Time to reach Restaurant</i></span>
+          <input type="text" class="form-control" placeholder="" aria-label="Your Name" name="timeToRestaurant"
+            aria-describedby="basic-addon1" required>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-6 align-self-center">
+          <div class="input-group mb-3">
+            <span class="input-group-text"><i class="material-icons">Estimated time to deliver</i></span>
+            <input type="text" class="form-control" placeholder="" aria-label="Your Name" name="timeToCustomer"
+              aria-describedby="basic-addon1" required>
+          </div>
+        </div>
+
+        <div class='row justify-content-center'>
+          <div class='col-auto align-self-center'>
+            <button class="btn btn-primary" name="submit" type="submit"
+              style="font-size: 1.4rem; width: 6rem; height: 3.2rem; text-align: center; margin-bottom: 2rem;">
+              Submit
+            </button>
+          </div>
+        </div>
+
+  </form>
+  {% elif showButton == 2 %}
+  <form action={{url_for('ratingDeliveryAgent')}} method="POST" enctype="multipart/form-data">
+    <div class='row justify-content-center'>
+      <div class='col-3 align-self-center'>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="material-icons">Customer Rating</i></span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" name="customerRating" max=5 min=0
+            required>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-auto align-self-center">
+          <button class="btn btn-primary" name="submit" type="submit"
+            style="font-size: 1.4rem; width: 12rem; height: 3.2rem; text-align: center;">
+            Order Delivered
+          </button>
+        </div>
+      </div>
+  </form>
+  {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'topBarAdded.html' %}
+
+{% block title %}
+<title>Offers</title>
+{% endblock %}
+
+
+{% block topBarButtons %}
+  <a href={{url_for('logout')}}>
+    <button class="btn btn-outline-light" name="submit" type="submit">
+        Logout
+    </button>
+  </a>
+{% endblock %}
+
+{% block main %}
+    <div class='container-fluid' >
+      <div class='row justify-content-center'>
+        <div class='col-auto align-self-center'>
+          {% if not offerList %}
+              <h1>There are no Offers in List. Please create new offers.</h1>
+          {% else %}
+            <div class="container-fluid">
+                <table class="table table-hover" style="background-color: rgb(252, 252, 252); width: 50rem; margin-top: 2rem;">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Discount(%)</th>
+                      <th>Upper Limit</th>
+                      <th>Give Offer</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for offer in offerList %}
+                      <tr>
+                        <th>{{offer['name']}}</th>
+                        <td>{{offer['discount']}}</td>
+                        <td>{{offer['upperLimit']}}</td>
+                        <td>
+                            <a href= {{url_for('giveOffer', toGive=loop.index)}}>
+                                <button class="btn btn-primary" name="submit" type="submit" style="width: 5rem;">
+                                    Give
+                                </button>
+                            </a>
+                        </td>
+                      </tr>
+                    {% endfor %} 
+                  </tbody>
+                </table>
+              </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+{% endblock %}

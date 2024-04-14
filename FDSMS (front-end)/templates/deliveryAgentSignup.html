@@ -1,0 +1,104 @@
+{% extends 'topBarAdded_idx.html' %}
+{% block title %}
+  <title>Delivery Agent Signup</title>
+{% endblock %}
+
+{% block sty%}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('./static/try.webp');
+    /* Example image URL */
+    background-size: cover;
+    background-position: center;
+  }
+
+  .signup-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .signup-container h2 {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-top: 10px;
+    justify-content: center;
+  }
+
+  .signup-form input[type="text"],
+  .signup-form input[type="date"],
+  .signup-form input[type="email"],
+  .signup-form input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .signup-form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .signup-form input[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+</style>
+{% endblock %}
+
+{% block main %}
+<div class="container">
+  {% if message!="False" %}
+  <div class="row justify-content-center">
+    <div class="col-auto align-self-center">
+      {{ message }}
+    </div>
+  </div>
+  {% endif %}
+  <div class="row justify-content-center">
+    <div class="col-auto align-self-center">
+      <div class="signup-container">
+        <h2>Delivery Agent</h2>
+        <form class="signup-form" action={{url_for('deliveryAgentsignup')}} method="post">
+          <input type="text" name="name" placeholder="Your Name" required><br>
+          <input type="date" name="dob" placeholder="DOB" required><br>
+          <select id="gender" name="gender" class="form-select"
+            style="width: 17.3rem;height: 3rem; margin-left: 0.5rem; margin-bottom: 0.6rem; margin-right: 0.5rem;">
+            <option selected value="">Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+          <input type="email" name="email" placeholder="Email ID" required><br>
+          <input type="text" name="mobile" placeholder="Phone Number" required><br>
+          <input type="password" name="password" placeholder="Password" required><br>
+          <select id="area" name="area" class="form-select"
+            style="width: 17.3rem;height: 3rem; margin-left: 0.5rem; margin-bottom: 0.6rem; margin-right: 0.5rem;">
+            <option selected value="Area">Area  </option>
+            {% for area in area_dict %}
+            <option value={{ area['name'] }}>{{ area['name'] }}</option>
+            {% endfor %}
+          </select>
+          <input type="submit" value="Sign Up">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

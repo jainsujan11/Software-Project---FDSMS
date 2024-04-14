@@ -1,0 +1,51 @@
+{% extends 'topBarAdded.html' %}
+
+{% block title %}
+<title>Index Page</title>
+{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <h1 class="text-center mb-4" style="color: rgb(255, 255, 255); font-family: 'Arial', sans-serif;">Welcome User!</h1>
+    </div>
+
+    <div style="display: flex; justify-content: center; align-items: center; gap: 2rem;">
+        <!-- <div class="col-md-6 mb-3 text-center">
+            <a href="{{ url_for('signUp')}}" class="btn btn-primary btn-lg btn-block " style="height: 4rem; width: 8rem;">
+                Sign Up
+            </a>
+        </div> -->
+        <button onclick="window.location.href='{{ url_for('signUp') }}'" class="btn btn-primary btn-lg btn-block"
+        style="width: 15%;margin-bottom: 1.5rem;">
+        Sign Up
+      </button>
+        <!-- <div class="col-md-6 mb-3 text-center">
+            <a href="{{ url_for('login')}}" class="btn btn-primary btn-lg btn-block" style="height: 4rem; width: 8rem;" >
+                Login
+            </a>
+        </div> -->
+        <button onclick="window.location.href='{{ url_for('login') }}'" class="btn btn-primary btn-lg btn-block"
+        style="width: 15%;margin-bottom: 1.5rem;">
+        Login
+      </button>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block sty %}
+<style>
+  body {
+    background-image: url("/static/bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+  }
+
+  .container {
+    margin-top: 13%; /* Adjust this value to move the buttons further downwards */
+  }
+</style>
+{% endblock %}

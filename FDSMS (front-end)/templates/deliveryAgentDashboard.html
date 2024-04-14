@@ -1,0 +1,109 @@
+{% extends 'topBarAdded.html' %}
+
+{% block title %}
+  <title>Delivery Agent</title>
+{% endblock %}
+
+
+{% block topBarButtons %}
+  <a href={{url_for('logout')}}>
+    <button class="btn btn-outline-light" name="submit" type="submit">
+        Logout
+    </button>
+  </a>
+{% endblock %}
+
+{% block main %}
+<div class='container'
+  style="height: 88vh; display: flex;flex-direction: column ;justify-content: flex-start;align-items: center;">
+  <!-- <div class='row justify-content-center'>
+    <div class='col-auto align-self-center'>
+      <h1 class="login-heading mb-4" style="color: white; font-size: 3rem;font-weight: 500; ">Welcome {{ user['name'] }}
+        !</h1>
+    </div>
+  </div> -->
+  <div class="dropdown">
+    <button class="dropbtn">
+      <img src="/static/user.png" alt="Logo" class="logo">
+    </button>
+    <div class="dropdown-content">
+      <a href={{url_for('personalData')}}>Personal Details</a>
+    </div>
+  </div>
+  <h1 class="login-heading mb-4" style="color: white; font-size: 3rem;font-weight: 500; ">Welcome {{ user['name'] }}
+    !</h1>
+  <a href={{url_for('markLocation')}}>
+    <button class="btn btn-primary btn-lg" name="submit" type="submit" style="margin-bottom: 20px;width: 200px">
+      Mark Location
+    </button>
+  </a>
+  <a href={{url_for('seeDeliveryRequest')}}>
+    <button class="btn btn-primary btn-lg" name="submit" type="submit" style="margin-bottom: 20px;width: 14rem">
+      See Delivery Request
+    </button>
+  </a>
+  <a href={{url_for( "currentOrderDeliveryAgent" )}}>
+    <button class="btn btn-primary btn-lg" name="submit" type="submit" style="margin-bottom: 20px;width: 200px">
+      See Current Order
+    </button>
+  </a>
+</div>
+{% endblock %}
+{% block sty %}
+<style>
+  body {
+    background-image: url("/static/bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+  }
+
+  /* Dropdown container */
+  .dropdown {
+    position: relative;
+    margin-left: 97%;
+  }
+
+  /* Dropdown button */
+  .dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Dropdown content (hidden by default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* Style the logo */
+  .logo {
+    width: 50px;
+    /* Adjust size as needed */
+    height: auto;
+  }
+</style>
+{% endblock %}
