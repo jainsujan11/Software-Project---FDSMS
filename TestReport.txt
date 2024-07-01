@@ -1,0 +1,13 @@
+Test Restaurant Signup - PASSED
+Test Delivery Agent Signup - PASSED
+Test Customer Signup - PASSED
+Test Delete User - PASSED
+Test Get Menu - PASSED - fetch 21 items
+Test Food Item Adder - PASSED
+Test Signin - PASSED
+Test Get All Restaurant - PASSED - fetch 28 restaurants
+Test Get All Customer - PASSED - fetch 27 customers
+Test Get All Delivery - PASSED - fetch 24 delivery agents
+Test Change Recommended FoodItem - PASSED
+Test change Recommended Restaurant - PASSED
+Test get Recommended Restaurant - PASSED - fetch 2 recommended restaurants

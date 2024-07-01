@@ -1,0 +1,82 @@
+{% extends 'topBarAdded.html' %}
+
+{% block title %}
+<title>Menu</title>
+{% endblock %}
+
+
+{% block topBarButtons %}
+<a href={{url_for('logout')}}>
+  <button class="btn btn-outline-light" name="submit" type="submit">
+      Logout
+  </button>
+</a>
+{% endblock %}
+
+{% block main %}
+  {% if user['userType']  == 'customer' %}
+  <form action={{url_for('order')}} method="POST">
+  {% endif %}
+    <div class='container-fluid' >
+      <div class='row justify-content-center'>
+        <div class='col-auto align-self-center' style="color: rgb(255, 255, 255);">
+          {% if not foodItemList %}
+              <h1>There are no Food Items in List</h1>
+          {% else %}
+            <div class="container-fluid">
+              <table class="table table-hover" style="background-color: rgb(252, 252, 252); width: 50rem; margin-top: 2rem;">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Recommended</th>
+                    {% if user['userType'] == "customer" %}
+                      <th>Frequency</th>
+                    {% elif user['userType'] == "admin" %}
+                      <th>Recommend</th>
+                    {% endif %}
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for foodItem in foodItemList %}
+                    <tr>
+                      <td>{{foodItem['name']}}</td>
+                      <td>{{foodItem['pricePerItem']}}</td>
+                      <td>
+                        {% if foodItem['isRecommended'] %}
+                          Yes
+                        {% endif %}
+                      </td>
+                      {% if user['userType'] == 'customer' %}
+                        <td>
+                          <input type="number" class="form-control"aria-labelledby="my-label-id" value="0" name={{loop.index}} required min="0">
+                        </td>
+                      {% elif user['userType'] == "admin" %}
+                        <td>
+                          <a href= {{url_for('changeRecommendFoodItem', id_to_change=loop.index)}}>
+                            <button class="btn btn-primary" name="submit" type="submit">
+                              Change
+                            </button>
+                          </a>
+                        </td>
+                      {% endif %}
+                    </tr>
+                  {% endfor %} 
+                </tbody>
+              </table>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      {% if user['userType'] == 'customer' %}
+        <div class='row justify-content-center'>
+          <div class='col-auto align-self-center'>
+            <button class="btn btn-primary" name="submit" type="submit" style="font-size: 1.4rem; width: 6rem; height: 3rem; text-align: center;">
+              order
+            </button>
+          </div> 
+        </div>
+      {% endif %}
+    </div>
+  </form>
+{% endblock %}

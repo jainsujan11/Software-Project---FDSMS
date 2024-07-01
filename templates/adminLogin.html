@@ -1,0 +1,66 @@
+{% extends 'topBarAdded_idx.html' %}
+{% block title %}
+<title>Login page</title>
+{% endblock %}
+
+{% block main %}
+{% if message != "False" %}
+<div class="row justify-content-center">
+  <div class="col-auto align-self-center">
+    {{ message }}
+  </div>
+</div>
+{% endif%}
+<div style="display: flex; flex-direction: column ; justify-content: center; align-items: center; height: 80vh; ">
+  <div class="row">
+    <div class="col-md-9 col-lg-8 mx-auto">
+      <h3 class="login-heading mb-4" style="color: white; font-size: 3rem;font-weight: 500; ">Login</h3>
+
+      <form action={{url_for('adminlogin')}} method="POST"
+        style="display: flex;flex-direction: column; align-items: center; justify-content: center;height: 80%;;">
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com"
+            style="width: 20rem;">
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password"
+            style="width: 20rem;">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <!-- <select id="type" name="type" class="form-select" style="width: 20rem;">
+          <option selected value="type">
+            <p style="color: black;"> Type</p>
+          </option>
+          <option value=customer>
+            <p style="color: black;"> Customer</p>
+          </option>
+          <option value=restaurant>
+            <p style="color: black;"> Restaurant</p>
+          </option>
+          <option value=restaurant>
+            <p style="color: black;"> Delivery Agent</p>
+          </option>
+          <option value=restaurant>
+            <p style="color: black;"> Administration</p>
+          </option>
+        </select> -->
+        <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mt-3" type="submit"
+          style="font-size: 1.2rem; width: 8rem; height: 3.2rem; text-align: center;">Sign in</button>
+    </div>
+    </form>
+  </div>
+</div>
+</div>
+{% endblock %}
+
+{% block sty %}
+<style>
+  body {
+    background-image: url("/static/bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 80vh;
+  }
+</style>
+{% endblock %}

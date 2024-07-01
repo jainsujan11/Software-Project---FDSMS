@@ -1,0 +1,78 @@
+{% extends 'topBarAdded.html' %}
+
+{% block title %}
+<title>Recommended Restaurant</title>
+{% endblock %}
+
+
+{% block topBarButtons %}
+<a href={{url_for('logout')}}>
+  <button class="btn btn-outline-light" name="submit" type="submit">
+    Logout
+  </button>
+</a>
+{% endblock %}
+
+{% block main %}
+<div class='container-fluid'>
+  <div class='row justify-content-center'>
+    <div class='col-auto align-self-center'>
+      {% if not restaurantList %}
+      <h1>There are no Restaurants in List</h1>
+      {% else %}
+      <div class="container-fluid">
+        <table class="table table-hover"
+          style="background-color: white; width: 40rem; margin-left: 7rem; margin-top: 2rem;">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Rating</th>
+              <th>Area</th>
+              <th>Recommended</th>
+              <th>Email Id</th>
+              <th>Menu</th>
+              {% if user['userType'] == "customer" %}
+              <th>Order Now</th>
+              {% endif %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for restaurant in restaurantList %}
+            <tr>
+              <td>{{restaurant['name']}}</td>
+              <td>{{restaurant['ratingValue']}}</td>
+              <td>{{restaurant['areaName']}}</td>
+              <td>
+                {% if restaurant['isRecommended'] %}
+                Yes
+                {% endif %}
+              </td>
+              <td>{{restaurant['email']}}</td>
+              <td>
+                <a href={{url_for('allFoodItem11', restaurantUserId=restaurant['userId'] )}}>
+                  <button class="btn btn-primary" name="submit" type="submit"
+                    style="font-size: 1.2rem; width: 9rem; height: 3rem; text-align: center;">
+                    Open Menu
+                  </button>
+                </a>
+              </td>
+              {% if user['userType'] == "customer" %}
+              <td>
+                <a href={{url_for('allFoodItem11', restaurantUserId=restaurant['userId'] )}}>
+                  <button class="btn btn-primary" name="submit" type="submit"
+                    style="font-size: 1.2rem; width: 7rem; height: 3rem; text-align: center;">
+                    Click Here
+                  </button>
+                </a>
+              </td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

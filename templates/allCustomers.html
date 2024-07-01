@@ -1,0 +1,69 @@
+{% extends 'topBarAdded.html' %}
+
+{% block title %}
+  <title>Customer List</title>
+{% endblock %}
+
+
+{% block topBarButtons %}
+  <a href={{url_for('logout')}}>
+    <button class="btn btn-outline-light" name="submit" type="submit">
+        Logout
+    </button>
+  </a>
+{% endblock %}
+
+{% block main %}
+  <div class='container-fluid' >
+    <div class='row justify-content-center'>
+      <div class='col-auto align-self-center'>
+        {% if not session['customerList'] %}
+            <h1 style="color: rgb(255, 255, 255);">There are no Customers in List</h1>
+        {% else %}
+            <div class="container-fluid">
+              <table class="table table-hover" style="background-color: rgb(255, 255, 255);">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Rating</th>
+                    <th>Gender</th>
+                    <th>Date of Birth</th>
+                    <th>Email ID</th>
+                    <th>Phone Number</th>
+                    <th>Promotional Offer</th>
+                    <th>Delete User</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for customer in session['customerList'] %}
+                    <tr>
+                      <td>{{customer['name']}}</td>
+                      <td>{{'%.1f'|format(customer['rating'][2])}}</td>
+                      <td>{{customer['gender']}}</td>
+                      <td>{{customer['dob']}}</td>
+                      <td>{{customer['email']}}</td>
+                      <td>{{customer['mobile']}}</td>
+                      <td>
+                        <a href={{url_for('allOffer', customer_id=loop.index)}}>
+                            <button class="btn btn-primary" name="submit" type="submit">
+                                Give Offer
+                            </button>
+                        </a>
+                      </td>
+                      <td>
+                        <a href={{url_for('deleteUser', user_type="customer", delete_id=loop.index)}}>
+                            <button class="btn btn-primary" name="submit" type="submit">
+                                Delete
+                            </button>
+                        </a>
+                      </td>
+                    </tr>
+                  {% endfor %} 
+                </tbody>
+              </table>
+            </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

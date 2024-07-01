@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{%block head%}
+    {% block title %}<title>TopBarPage</title>{% endblock %}
+{%endblock%}
+
+{% block body %}
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href={{url_for('index')}}>
+        <img src="{{ url_for('static', filename='meal.png') }}" alt="Logo" width="50">
+          <span style="align-items: center;color:white;max-height:70px;margin-right:10px">Food Service</span>
+      </a>
+      <section>
+          {% block topBarButtons %}{% endblock %}
+          <a href={{ url_for('index')}}>
+              <button class="btn btn-outline-light">
+                  Dashboard
+              </button>
+          </a>
+          <a>
+              <button class="btn btn-outline-light" onclick="history.back()">
+                  Go Back
+              </button>
+          </a>
+      </section>
+  </div>
+</nav>
+{% block sty %}
+<style>
+  body {
+    background-image: url("/static/bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 80vh;
+  }
+</style>
+{% endblock %} 
+  <main>
+      {% block main %}{% endblock %}
+  </main>
+
+{% endblock %}
